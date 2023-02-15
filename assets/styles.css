@@ -10,6 +10,10 @@
   list-style: none;
 }
 
+button {
+  cursor: pointer;
+}
+
 html {
   background-color: black;
   scroll-behavior: smooth;
@@ -32,7 +36,7 @@ header ul {
   gap: 20px;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
@@ -76,19 +80,20 @@ header > div {
 }
 
 .onBlur {
-  background-color: white;
-  width: 100%;
+  background-color: rgb(219, 219, 219);
+  width: 50%;
   height: calc(100vh - 90px);
   position: absolute;
-  z-index: -1;
+  z-index: 1;
   top: -900px;
-  left: -900px;
+  right: -900px;
   display: none;
-  filter: blur(14px);
-  opacity: 50%;
+  filter: blur(2px);
+  opacity: 60%;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   -ms-transition: all 0.5s;
   -o-transition: all 0.5s;
+  -webkit-filter: blur(2px);
 }

@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./assets/styles.css" />
+    <link rel="stylesheet" href="./assets/stylesCart.css" />
     <link rel="stylesheet" href="./assets/mediaQuerys.css" />
     <link
       rel="stylesheet"
@@ -17,20 +18,51 @@
   </head>
   <body>
     <header>
-      <a href="/index.html" class="logo--navbar">Kiosko</a>
+      <a href="/index.html" class="logo--navbar link--navbar">Kiosko</a>
       <div class="container--iconBars"><i class="fa-solid fa-bars"></i></div>
       <ul class="menu--hamburguerUl">
-        <a href="#"> <li>Inicio</li></a>
-        <a href="#"><li>Productos</li></a>
-        <a href="#"><li>Golosinas</li></a>
-        <a href="#"><li>Bebidas</li></a>
-        <a href="#"><li>Ubicación</li></a>
-        <a href="#"
-          ><li><i class="fa-solid fa-cart-shopping"></i></li
-        ></a>
+        <a href="#" class="link--navbar"><li>Inicio</li></a>
+        <a href="#" class="link--navbar"><li>Productos</li></a>
+        <a href="#" class="link--navbar"><li>Golosinas</li></a>
+        <a href="#" class="link--navbar"><li>Bebidas</li></a>
+        <a href="#" class="link--navbar"><li>Ubicación</li></a>
+        <a id="cart--icon__navbar">
+          <li>
+            <i class="fa-solid fa-cart-shopping"></i>
+          </li>
+        </a>
       </ul>
       <div class="onBlur"></div>
     </header>
+    <div class="container--cart activeCart">
+      <div>
+        <h2>Carrito</h2>
+        <button class="empty--cart__button">Vaciar carrito</button>
+      </div>
+      <div class="container--all__productsCart">
+        <div class="container--product__inCart">
+          <img
+            src="https://pngimg.com/d/juice_PNG7184.png"
+            alt="img producto"
+            class="img--product__cart"
+          />
+          <div class="container--details__productInCart">
+            <div>
+              <span>Jugo de Manzana</span>
+              <span>$2.99</span>
+            </div>
+            <div>
+              <button>+</button>
+              <span>1</span>
+              <button>-</button>
+            </div>
+          </div>
+          <div><i class="fa-solid fa-trash-can"></i></div>
+        </div>
+      </div>
+
+      <button class="button--finish__purchase">Finalizar compra</button>
+    </div>
     <section></section>
   </body>
   <script src="./script/app.js"></script>

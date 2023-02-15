@@ -31,6 +31,19 @@
   .active {
     display: block;
     top: 90px;
-    left: 0px;
+    left: 50%;
+  }
+  .container--product__inCart {
+    flex-direction: column;
+  }
+
+  .container--details__productInCart {
+    align-items: center;
+    gap: 10px;
+  }
+
+  .container--details__productInCart > div:first-of-type {
+    flex-direction: column;
+    gap: 10px;
   }
 }
