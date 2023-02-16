@@ -17,8 +17,9 @@
     <title>Integrador Js Nucba</title>
   </head>
   <body>
+    <!-- Navbar -->
     <header>
-      <a href="/index.html" class="logo--navbar link--navbar">Kiosko</a>
+      <a href="/index.html" class="logo--navbar link--navbar">Kioskorporation</a>
       <div class="container--iconBars"><i class="fa-solid fa-bars"></i></div>
       <ul class="menu--hamburguerUl">
         <a href="#" class="link--navbar"><li>Inicio</li></a>
@@ -34,36 +35,19 @@
       </ul>
       <div class="onBlur"></div>
     </header>
-    <div class="container--cart activeCart">
+    <!-- Finaliza Navbar -->
+    <!-- Cart -->
+    <div class="container--cart">
       <div>
         <h2>Carrito</h2>
         <button class="empty--cart__button">Vaciar carrito</button>
       </div>
-      <div class="container--all__productsCart">
-        <div class="container--product__inCart">
-          <img
-            src="https://pngimg.com/d/juice_PNG7184.png"
-            alt="img producto"
-            class="img--product__cart"
-          />
-          <div class="container--details__productInCart">
-            <div>
-              <span>Jugo de Manzana</span>
-              <span>$2.99</span>
-            </div>
-            <div>
-              <button>+</button>
-              <span>1</span>
-              <button>-</button>
-            </div>
-          </div>
-          <div><i class="fa-solid fa-trash-can"></i></div>
-        </div>
-      </div>
-
+      <div class="container--all__productsCart"></div>
       <button class="button--finish__purchase">Finalizar compra</button>
     </div>
+    <!-- Finaliza cart -->
     <section></section>
   </body>
-  <script src="./script/app.js"></script>
+  <script src="./script/dataObjects.js" type="module"></script>
+  <script src="./script/app.js" type="module"></script>
 </html>
