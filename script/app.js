@@ -1,6 +1,4 @@
-import { productsArr } from "./dataObjects";
-const list = productsArr;
-console.log("list:", list);
+import { productsArr } from "./dataObjects.js";
 const iconHamburguer = document.querySelector(".container--iconBars");
 const ulHamburguesaMenu = document.querySelector(".menu--hamburguerUl");
 const blur = document.querySelector(".onBlur");
@@ -53,10 +51,13 @@ const templateRenderObjectCart = (product) => {
   `;
 };
 
-/* const renderObjectsWithMapCart = () => {
-  console.log(productsArr);
+const renderObjectsWithMapCart = () => {
+  containerProductsInCart.innerHTML = productsArr
+    .map((elem) => templateRenderObjectCart(elem))
+    .join("");
 };
-renderObjectsWithMapCart(); */
+
+renderObjectsWithMapCart();
 
 const init = () => {
   document.addEventListener("DOMContentLoaded", toggleNavLinksForEach);

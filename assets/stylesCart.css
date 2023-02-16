@@ -55,12 +55,13 @@
 
 .container--product__inCart {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 20px;
   border: 1px solid #7e7e7e;
   padding: 20px 5px;
   margin: 0px 10px 10px 10px;
+  width: 400px;
 }
 
 .container--product__inCart > div:last-child i {
@@ -70,7 +71,7 @@
 }
 
 .img--product__cart {
-  height: 100px;
+  height: 120px;
   width: auto;
   object-fit: contain;
 }
