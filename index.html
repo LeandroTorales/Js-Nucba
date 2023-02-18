@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./assets/styles.css" />
+    <link rel="stylesheet" href="./assets/stylesNavbar.css" />
+    <link rel="stylesheet" href="./assets/stylesMain.css" />
     <link rel="stylesheet" href="./assets/stylesCart.css" />
     <link rel="stylesheet" href="./assets/mediaQuerys.css" />
     <link
@@ -19,14 +20,14 @@
   <body>
     <!-- Navbar -->
     <header>
-      <a href="/index.html" class="logo--navbar link--navbar">Kioskorporation</a>
+      <a href="#presentacion--section" class="logo--navbar link--navbar">Kioskorporation</a>
       <div class="container--iconBars"><i class="fa-solid fa-bars"></i></div>
       <ul class="menu--hamburguerUl">
-        <a href="#" class="link--navbar"><li>Inicio</li></a>
-        <a href="#" class="link--navbar"><li>Productos</li></a>
-        <a href="#" class="link--navbar"><li>Golosinas</li></a>
-        <a href="#" class="link--navbar"><li>Bebidas</li></a>
-        <a href="#" class="link--navbar"><li>Ubicación</li></a>
+        <a href="/index.html" class="link--navbar"><li>Inicio</li></a>
+        <a href="#main--section" class="link--navbar"><li>Productos</li></a>
+        <li>Golosinas</li>
+        <li>Bebidas</li>
+        <a href="/ubicacion.html" class="link--navbar"><li>Ubicación</li></a>
         <a id="cart--icon__navbar">
           <li>
             <i class="fa-solid fa-cart-shopping"></i>
@@ -46,7 +47,190 @@
       <button class="button--finish__purchase">Finalizar compra</button>
     </div>
     <!-- Finaliza cart -->
-    <section></section>
+    <!-- Empieza section presentación -->
+    <section class="presentacion--section" id="presentacion--section">
+      <img
+        src="https://okdiario.com/img/2021/11/25/franki-chamaki-ivfp_yxzuyq-unsplash11.jpg"
+        alt="image-Presentación"
+      />
+      <div>
+        <h2>Bienvenido a nuestro Kiosko interactivo.</h2>
+        <p>
+          En nuestro Kiosko encontraras los mejores precios en los productos mas requeridos por los
+          consumidores.
+        </p>
+        <p>
+          Ház click en el botón de abajo para que te redireccionemos a la lista de productos
+          disponibles.
+        </p>
+        <a href="#main--section"><button>PRODUCTOS</button></a>
+      </div>
+    </section>
+    <!-- Termina section presentación -->
+    <!-- Empieza section main -->
+    <section id="main--section">
+      <h2>Categorias de productos</h2>
+      <div class="container--category">
+        <button class="button--category" data-category="bebidas">
+          Bebidas
+          <i class="fa-solid fa-arrow-down"></i>
+        </button>
+
+        <!-- Div TEmplate de productos en categoria cuando es presionada, borrarlo despues  -->
+        <div class="container--products__inCategory">
+          <div class="container--singleProduct__inCategory">
+            <img
+              src="https://cdn.sanity.io/images/jsdrzfkj/production-esmx/0cfe5da537ac31c60b182d7b0878a94b4073fdd0-1000x1000.png?w=400&h=400&fit=crop"
+              ,
+              alt="img producto"
+              class="img--product__cart"
+            />
+            <div>
+              <div>
+                <span>Mayoensa con ajo</span>
+                <span>$513</span>
+              </div>
+              <div>
+                <button>+</button>
+                <span>614</span>
+                <button>-</button>
+              </div>
+              <button class="button--addToCart">Agregar</button>
+            </div>
+          </div>
+          <div class="container--singleProduct__inCategory">
+            <img
+              src="https://cdn.sanity.io/images/jsdrzfkj/production-esmx/0cfe5da537ac31c60b182d7b0878a94b4073fdd0-1000x1000.png?w=400&h=400&fit=crop"
+              ,
+              alt="img producto"
+              class="img--product__cart"
+            />
+            <div>
+              <div>
+                <span>Mayoensa con ajo</span>
+                <span>$513</span>
+              </div>
+              <div>
+                <button>+</button>
+                <span>614</span>
+                <button>-</button>
+              </div>
+              <button class="button--addToCart">Agregar</button>
+            </div>
+          </div>
+          <div class="container--singleProduct__inCategory">
+            <img
+              src="https://cdn.sanity.io/images/jsdrzfkj/production-esmx/0cfe5da537ac31c60b182d7b0878a94b4073fdd0-1000x1000.png?w=400&h=400&fit=crop"
+              ,
+              alt="img producto"
+              class="img--product__cart"
+            />
+            <div>
+              <div>
+                <span>Mayoensa con ajo</span>
+                <span>$513</span>
+              </div>
+              <div>
+                <button>+</button>
+                <span>614</span>
+                <button>-</button>
+              </div>
+              <button class="button--addToCart">Agregar</button>
+            </div>
+          </div>
+          <div class="container--singleProduct__inCategory">
+            <img
+              src="https://cdn.sanity.io/images/jsdrzfkj/production-esmx/0cfe5da537ac31c60b182d7b0878a94b4073fdd0-1000x1000.png?w=400&h=400&fit=crop"
+              ,
+              alt="img producto"
+              class="img--product__cart"
+            />
+            <div>
+              <div>
+                <span>Mayoensa con ajo</span>
+                <span>$513</span>
+              </div>
+              <div>
+                <button>+</button>
+                <span>614</span>
+                <button>-</button>
+              </div>
+              <button class="button--addToCart">Agregar</button>
+            </div>
+          </div>
+          <div class="container--singleProduct__inCategory">
+            <img
+              src="https://cdn.sanity.io/images/jsdrzfkj/production-esmx/0cfe5da537ac31c60b182d7b0878a94b4073fdd0-1000x1000.png?w=400&h=400&fit=crop"
+              ,
+              alt="img producto"
+              class="img--product__cart"
+            />
+            <div>
+              <div>
+                <span>Mayoensa con ajo</span>
+                <span>$513</span>
+              </div>
+              <div>
+                <button>+</button>
+                <span>614</span>
+                <button>-</button>
+              </div>
+              <button class="button--addToCart">Agregar</button>
+            </div>
+          </div>
+        </div>
+        <!--  TERMINA Div TEmplate de productos en categoria cuando es presionada, borrarlo despues  -->
+      </div>
+      <div class="container--category">
+        <button class="button--category" data-category="golosinas">
+          Golosinas
+          <i class="fa-solid fa-arrow-down"></i>
+        </button>
+      </div>
+      <div class="container--category">
+        <button class="button--category" data-category="snacks">
+          Snacks
+          <i class="fa-solid fa-arrow-down"></i>
+        </button>
+      </div>
+      <div class="container--category">
+        <button class="button--category" data-category="lacteos">
+          Lácteos
+          <i class="fa-solid fa-arrow-down"></i>
+        </button>
+      </div>
+      <div class="container--category">
+        <button class="button--category" data-category="cereales">
+          Cereales
+          <i class="fa-solid fa-arrow-down"></i>
+        </button>
+      </div>
+      <div class="container--category">
+        <button class="button--category" data-category="congelados">
+          Congelados
+          <i class="fa-solid fa-arrow-down"></i>
+        </button>
+      </div>
+      <div class="container--category">
+        <button class="button--category" data-category="helados">
+          Helados
+          <i class="fa-solid fa-arrow-down"></i>
+        </button>
+      </div>
+      <div class="container--category">
+        <button class="button--category" data-category="perfumería">
+          Perfumería
+          <i class="fa-solid fa-arrow-down"></i>
+        </button>
+      </div>
+      <div class="container--category">
+        <button class="button--category" data-category="limpieza">
+          Limpieza
+          <i class="fa-solid fa-arrow-down"></i>
+        </button>
+      </div>
+    </section>
+    <!-- Termina section main -->
   </body>
   <script src="./script/dataObjects.js" type="module"></script>
   <script src="./script/app.js" type="module"></script>

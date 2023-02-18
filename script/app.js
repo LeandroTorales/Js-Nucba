@@ -57,13 +57,12 @@ const renderObjectsWithMapCart = () => {
     .join("");
 };
 
-renderObjectsWithMapCart();
-
 const init = () => {
   document.addEventListener("DOMContentLoaded", toggleNavLinksForEach);
   iconHamburguer.addEventListener("click", toggleNav);
   blur.addEventListener("click", toggleNav);
   cartIcon.addEventListener("click", toggleCart);
+  cartIcon.addEventListener("click", renderObjectsWithMapCart);
 };
 
 init();

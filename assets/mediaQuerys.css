@@ -46,4 +46,10 @@
     flex-direction: column;
     gap: 10px;
   }
+
+  .container--products__inCategory {
+    margin: 0px 0px 0px 20px;
+    font-size: 1.1rem;
+    flex-direction: column;
+  }
 }

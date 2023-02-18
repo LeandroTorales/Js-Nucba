@@ -1,15 +1,3 @@
-/* 
-golosinas
-cereales
-lacteos
-snacks
-helados
-perfumeria
-limpieza
-congelados
-bebidas
-*/
-
 export const productsArr = [
   {
     id: 1,
