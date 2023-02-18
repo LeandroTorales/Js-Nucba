@@ -109,6 +109,7 @@ header {
   align-items: flex-start;
   justify-content: center;
   margin: 10px;
+  gap: 20px;
 }
 
 #main--section h2 {
@@ -119,7 +120,7 @@ header {
 }
 
 .container--category {
-  padding: 20px;
+  margin: 20px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -143,7 +144,7 @@ header {
 
 .container--products__inCategory {
   background-color: #e40000;
-  display: flex;
+  display: none;
   margin: 0px 0px 0px 80px;
   align-items: center;
   justify-content: center;
@@ -153,13 +154,15 @@ header {
 }
 
 .container--singleProduct__inCategory {
-  padding: 20px;
+  padding: 15px;
   border: 1px solid black;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.4rem;
   text-align: center;
+  width: 475px;
+  height: 265px;
 }
 
 .container--singleProduct__inCategory > div {
@@ -200,4 +203,8 @@ header {
   border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
   width: 30px;
   height: 30px;
+}
+
+.activeCategory {
+  display: flex;
 }
