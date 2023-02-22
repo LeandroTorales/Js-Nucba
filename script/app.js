@@ -10,8 +10,10 @@ const overflowBody = document.querySelector("body");
 const containerProductsInCart = document.querySelector(".container--all__productsCart");
 const containerProductsCategory = document.querySelectorAll(".container--products__inCategory");
 const buttonPurchaseCart = document.querySelector(".button--finish__purchase");
+const emptyCart = document.querySelector(".empty--cart__button");
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
+console.log("cart:", cart);
 const saveToLocalStorage = (key) => {
   localStorage.setItem("cart", JSON.stringify(key));
 };
@@ -36,32 +38,33 @@ const toggleNav = () => {
 const toggleCart = () => {
   containerCart.classList.toggle("activeCart");
   overflowBody.classList.toggle("activeHiddenOverflow");
+  checkStateCart();
   if (ulHamburguesaMenu.classList.contains("activeHamburguesa")) return toggleNav();
 };
 
 /* Template categoria productos en main section */
 const renderTemplateCategory = (product) => {
-  const { id, nameProduct, category, price, stock, imgProduct } = product;
+  const { id, nameproduct, category, price, stock, imgProduct } = product;
   return `
   
           <div class="container--singleProduct__inCategory" data-id=${id} data-category=${category}>
             <img
               src=${imgProduct}
               ,
-              alt="img producto ${nameProduct}"
+              alt="img producto ${nameproduct}"
               class="img--product__cart"
             />
             <div>
               <div>
-                <span class="nameProductCategory">${nameProduct}</span>
+                <span class="nameproductCategory">${nameproduct}</span>
                 <span class="priceCategory">$${price}</span>
               </div>
               <div>
               <button>-</button>
-              <span>${stock}</span>
+              <span>1</span>
               <button>+</button>
               </div>
-              <button class="button--addToCart" data-id=${id} data-nameProduct="${nameProduct}" data-category=${category} data-price=${price} data-stock=${stock} data-imgProduct=${imgProduct}>Agregar</button>
+              <button class="button--addToCart" data-idstring=${id} data-nameproduct="${nameproduct}" data-category="${category}" data-pricestring=${price} data-stockstring=${stock} data-imgProduct=${imgProduct}>Agregar</button>
             </div>
           </div>
   `;
@@ -88,17 +91,40 @@ const buttonCategorySetListener = () => {
   });
 };
 
+/* Empezar lo de transformar los datos para poder llevarlos al localStorage, agregarle la cantidad, poner stock predeterminado en 1 y asi */
 /* DEMOSTREACION BORRAR */
-saveToLocalStorage([productsArr[0], productsArr[1]]);
 
 /* Funcion que crea el producto en el carrito del localStorage */
-const createCartProduct = (product) => {
+const createCartProductToCart = (product) => {
   cart = [...cart, { ...product, cantidad: 1 }];
+  console.log("cart:", cart);
+};
+
+const addUnitProductInCart = (product) => {
+  return console.log(cart);
 };
 
 const setProductToLocalStorage = (e) => {
-  if (!e.target.classList.contains("button--addToCart")) return console.log("hola");
-  console.log(e.target);
+  if (!e.target.classList.contains("button--addToCart")) return;
+
+  const { idstring, nameproduct, category, pricestring, stockstring, imgproduct } =
+    e.target.dataset;
+
+  const id = Number(idstring);
+  const price = Number(pricestring);
+  const stock = Number(stockstring);
+
+  const productObj = new Object({ id, nameproduct, category, price, stock, imgproduct });
+
+  const existProductInCart = (product) => {
+    return cart.find((obj) => obj.id === product.id);
+  };
+
+  existProductInCart(productObj)
+    ? addUnitProductInCart(productObj)
+    : createCartProductToCart(productObj);
+
+  checkStateCart();
 };
 
 /* Listeners para llamar a la funcion que crea el producto en el carrito con los datos del boton presionado */
@@ -110,17 +136,17 @@ const categoryListenerForEach = () => {
 
 /* Template productos en carrito */
 const templateRenderObjectCart = (product) => {
-  const { id, nameProduct, category, price, stock, imgProduct } = product;
+  const { id, nameproduct, category, price, stock, imgproduct } = product;
   return `
     <div class="container--product__inCart" data-id=${id} data-category=${category}>
       <img
-        src=${imgProduct}
+        src=${imgproduct}
         alt="img producto"
         class="img--product__cart"
       />
       <div class="container--details__productInCart">
         <div>
-          <span>${nameProduct}</span>
+          <span>${nameproduct}</span>
           <span>$${price}</span>
         </div>
         <div>
@@ -140,11 +166,11 @@ const cartRenderConditional = () => {
     containerCart.classList.add("cartEmptyClass");
     return (containerCart.innerHTML = `
     <div class="text--emptyCart">
-    <p>Ups!, parece que no tienes productos en el carrito, cuando agregues nuestros productos al
-    carrito, los verás aquí.</p>
+      <p>Ups!, parece que no tienes productos en el carrito, cuando agregues nuestros productos al carrito, los verás aquí.
+      </p>
     </div>
     <a href="/index.html" class="redirection__toProducts">
-    Ver Productos
+      Ver Productos
     </a>
     `);
   } else {
@@ -156,8 +182,14 @@ const cartRenderConditional = () => {
 };
 
 const checkStateCart = () => {
-  cartRenderConditional();
+  cartRenderConditional(cart);
   saveToLocalStorage(cart);
+};
+
+const cleanCart = () => {
+  saveToLocalStorage([]);
+  cart = [];
+  checkStateCart();
 };
 
 const init = () => {
@@ -168,6 +200,7 @@ const init = () => {
   iconHamburguer.addEventListener("click", toggleNav);
   blur.addEventListener("click", toggleNav);
   cartIcon.addEventListener("click", toggleCart);
+  emptyCart.addEventListener("click", cleanCart);
   /* cartIcon.addEventListener("click", renderObjectsWithMapCart); */
 };
 
