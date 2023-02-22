@@ -11,20 +11,12 @@ const containerProductsInCart = document.querySelector(".container--all__product
 const containerProductsCategory = document.querySelectorAll(".container--products__inCategory");
 const buttonPurchaseCart = document.querySelector(".button--finish__purchase");
 const emptyCart = document.querySelector(".empty--cart__button");
+const containerProductsCart = document.querySelector(".container--products__cart");
+const cartEmptyContainer = document.querySelector(".cart--empty__container");
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
-console.log("cart:", cart);
 const saveToLocalStorage = (key) => {
   localStorage.setItem("cart", JSON.stringify(key));
-};
-
-/* Armado de listeners de navLinks */
-const toggleNavLinksForEach = () => {
-  linksNavbar.forEach((link) => {
-    link.addEventListener("click", function () {
-      if (ulHamburguesaMenu.classList.contains("activeHamburguesa")) return toggleNav();
-    });
-  });
 };
 
 /* Intercambio de clases navbar y carrito */
@@ -38,7 +30,6 @@ const toggleNav = () => {
 const toggleCart = () => {
   containerCart.classList.toggle("activeCart");
   overflowBody.classList.toggle("activeHiddenOverflow");
-  checkStateCart();
   if (ulHamburguesaMenu.classList.contains("activeHamburguesa")) return toggleNav();
 };
 
@@ -60,9 +51,9 @@ const renderTemplateCategory = (product) => {
                 <span class="priceCategory">$${price}</span>
               </div>
               <div>
-              <button>-</button>
-              <span>1</span>
-              <button>+</button>
+              <button class="minus--button">-</button>
+              <span class="quantity--handler">1</span>
+              <button class="plus--button" data-id=${id}>+</button>
               </div>
               <button class="button--addToCart" data-idstring=${id} data-nameproduct="${nameproduct}" data-category="${category}" data-pricestring=${price} data-stockstring=${stock} data-imgProduct=${imgProduct}>Agregar</button>
             </div>
@@ -81,30 +72,45 @@ const renderProductsCategory = (btn) => {
     .join("");
 };
 
-/* Listeners de botones de filtrado categorias de productos en main */
-const buttonCategorySetListener = () => {
-  buttonsCategory.forEach((btn) => {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-      renderProductsCategory(btn);
-    });
-  });
-};
-
-/* Empezar lo de transformar los datos para poder llevarlos al localStorage, agregarle la cantidad, poner stock predeterminado en 1 y asi */
-/* DEMOSTREACION BORRAR */
-
 /* Funcion que crea el producto en el carrito del localStorage */
 const createCartProductToCart = (product) => {
-  cart = [...cart, { ...product, cantidad: 1 }];
+  cart = [...cart, { ...product, quantity: 1 }];
   console.log("cart:", cart);
 };
 
+/* Agregar una unidad en el carrito si existe el producto */
 const addUnitProductInCart = (product) => {
-  return console.log(cart);
+  cart = cart.map((productCart) =>
+    productCart.id === product.id
+      ? {
+          ...productCart,
+          quantity: productCart.quantity + 1,
+        }
+      : productCart
+  );
 };
 
+/* Handler cantidad de producto */
+const addQuantityProduct = (e) => {
+  const id = Number(e.target.dataset.id);
+  if (e.target.classList.contains("plus--button")) {
+    const stockProductFind = productsArr.find((product) => product.id === id);
+    if (e.target.previousElementSibling.innerHTML >= stockProductFind.stock) return;
+    return e.target.previousElementSibling.innerHTML++;
+  }
+};
+
+/* Handler cantidad de producto */
+const minusQuantityProduct = (e) => {
+  if (e.target.classList.contains("minus--button")) {
+    if (e.target.nextElementSibling.innerHTML <= 1) return;
+    return e.target.nextElementSibling.innerHTML--;
+  }
+};
+
+/* Funcion que hace la logica de armar el producto hacia el carrito */
 const setProductToLocalStorage = (e) => {
+  console.log("cart", cart);
   if (!e.target.classList.contains("button--addToCart")) return;
 
   const { idstring, nameproduct, category, pricestring, stockstring, imgproduct } =
@@ -125,13 +131,6 @@ const setProductToLocalStorage = (e) => {
     : createCartProductToCart(productObj);
 
   checkStateCart();
-};
-
-/* Listeners para llamar a la funcion que crea el producto en el carrito con los datos del boton presionado */
-const categoryListenerForEach = () => {
-  containerProductsCategory.forEach((cat) => {
-    cat.addEventListener("click", setProductToLocalStorage);
-  });
 };
 
 /* Template productos en carrito */
@@ -163,18 +162,11 @@ const templateRenderObjectCart = (product) => {
 /* Renderizado condicional carrito, si no hay productos muestra un template, sino, muestra los productos que hay en localStorage */
 const cartRenderConditional = () => {
   if (!cart.length) {
-    containerCart.classList.add("cartEmptyClass");
-    return (containerCart.innerHTML = `
-    <div class="text--emptyCart">
-      <p>Ups!, parece que no tienes productos en el carrito, cuando agregues nuestros productos al carrito, los verás aquí.
-      </p>
-    </div>
-    <a href="/index.html" class="redirection__toProducts">
-      Ver Productos
-    </a>
-    `);
+    cartEmptyContainer.classList.add("activeCartProducts");
+    containerProductsCart.classList.remove("activeCartProducts");
   } else {
-    containerCart.classList.remove("cartEmptyClass");
+    cartEmptyContainer.classList.remove("activeCartProducts");
+    containerProductsCart.classList.add("activeCartProducts");
     return (containerProductsInCart.innerHTML = cart
       .map((product) => templateRenderObjectCart(product))
       .join(""));
@@ -192,6 +184,34 @@ const cleanCart = () => {
   checkStateCart();
 };
 
+/* Armado de listeners de navLinks */
+const toggleNavLinksForEach = () => {
+  linksNavbar.forEach((link) => {
+    link.addEventListener("click", function () {
+      if (ulHamburguesaMenu.classList.contains("activeHamburguesa")) return toggleNav();
+    });
+  });
+};
+
+/* Listeners de botones de filtrado categorias de productos en main */
+const buttonCategorySetListener = () => {
+  buttonsCategory.forEach((btn) => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      renderProductsCategory(btn);
+    });
+  });
+};
+
+/* Listeners para llamar a la funcion que crea el producto en el carrito con los datos del boton presionado */
+const categoryListenerForEach = () => {
+  containerProductsCategory.forEach((cat) => {
+    cat.addEventListener("click", setProductToLocalStorage);
+    cat.addEventListener("click", addQuantityProduct);
+    cat.addEventListener("click", minusQuantityProduct);
+  });
+};
+
 const init = () => {
   window.addEventListener("DOMContentLoaded", toggleNavLinksForEach);
   window.addEventListener("DOMContentLoaded", buttonCategorySetListener);
@@ -200,8 +220,8 @@ const init = () => {
   iconHamburguer.addEventListener("click", toggleNav);
   blur.addEventListener("click", toggleNav);
   cartIcon.addEventListener("click", toggleCart);
+  cartIcon.addEventListener("click", checkStateCart);
   emptyCart.addEventListener("click", cleanCart);
-  /* cartIcon.addEventListener("click", renderObjectsWithMapCart); */
 };
 
 init();

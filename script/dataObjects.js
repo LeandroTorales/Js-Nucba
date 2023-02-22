@@ -724,7 +724,7 @@ export const productsArr = [
     nameproduct: "Agua mineral Villavicencio 2l",
     category: "bebidas",
     price: 120,
-    stock: 613,
+    stock: 13,
     imgProduct:
       "https://cdn.sanity.io/images/jsdrzfkj/production-esmx/0cfe5da537ac31c60b182d7b0878a94b4073fdd0-1000x1000.png?w=400&h=400&fit=crop",
   },
