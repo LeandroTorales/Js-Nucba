@@ -74,45 +74,51 @@ const renderProductsCategory = (btn) => {
 
 /* Funcion que crea el producto en el carrito del localStorage */
 const createCartProductToCart = (product) => {
-  cart = [...cart, { ...product, quantity: 1 }];
-  console.log("cart:", cart);
+  cart = [...cart, { ...product, quantity: Number(handlerQuantity) }];
+  handlerQuantity = 1;
 };
 
 /* Agregar una unidad en el carrito si existe el producto */
 const addUnitProductInCart = (product) => {
+  const productInCartQuantity = () => {
+    const quantityProduct = cart.find((prod) => prod.id === product.id);
+    return quantityProduct.quantity;
+  };
   cart = cart.map((productCart) =>
     productCart.id === product.id
       ? {
           ...productCart,
-          quantity: productCart.quantity + 1,
+          quantity: Number(handlerQuantity) + productInCartQuantity(),
         }
       : productCart
   );
+
+  handlerQuantity = 1;
 };
 
+let handlerQuantity;
 /* Handler cantidad de producto */
 const addQuantityProduct = (e) => {
+  /* Se buscka el id del producto para encontrarlo en el array de productos, para saber su stock y asi poder ponerle un limpite al handler */
   const id = Number(e.target.dataset.id);
-  if (e.target.classList.contains("plus--button")) {
-    const stockProductFind = productsArr.find((product) => product.id === id);
-    if (e.target.previousElementSibling.innerHTML >= stockProductFind.stock) return;
-    return e.target.previousElementSibling.innerHTML++;
-  }
+  if (!e.target.classList.contains("plus--button")) return;
+  const stockProductFind = productsArr.find((product) => product.id === id);
+  if (e.target.previousElementSibling.innerHTML >= stockProductFind.stock) return;
+  e.target.previousElementSibling.innerHTML++;
+  return (handlerQuantity = e.target.previousElementSibling.innerHTML);
 };
 
 /* Handler cantidad de producto */
 const minusQuantityProduct = (e) => {
-  if (e.target.classList.contains("minus--button")) {
-    if (e.target.nextElementSibling.innerHTML <= 1) return;
-    return e.target.nextElementSibling.innerHTML--;
-  }
+  if (!e.target.classList.contains("minus--button")) return;
+  if (e.target.nextElementSibling.innerHTML <= 1) return;
+  e.target.nextElementSibling.innerHTML--;
+  return (handlerQuantity = e.target.nextElementSibling.innerHTML);
 };
 
 /* Funcion que hace la logica de armar el producto hacia el carrito */
 const setProductToLocalStorage = (e) => {
-  console.log("cart", cart);
   if (!e.target.classList.contains("button--addToCart")) return;
-
   const { idstring, nameproduct, category, pricestring, stockstring, imgproduct } =
     e.target.dataset;
 
@@ -129,6 +135,9 @@ const setProductToLocalStorage = (e) => {
   existProductInCart(productObj)
     ? addUnitProductInCart(productObj)
     : createCartProductToCart(productObj);
+
+  /* Quantity product, una vez que se da click y se mandan los datos al localStorage, se hace con dom traveling el reseteo de la cantidad de productos*/
+  e.target.previousElementSibling.childNodes[3].innerHTML = 1;
 
   checkStateCart();
 };
