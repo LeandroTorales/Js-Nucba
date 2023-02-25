@@ -36,7 +36,7 @@ html {
   object-fit: cover;
 }
 
-.presentacion--section div {
+.presentacion--section > div:first-of-type {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -213,4 +213,49 @@ html {
   color: black;
   font-weight: 600;
   font-size: 1.6rem;
+}
+
+.modal--purchase__container {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: #e2e2e25c;
+}
+
+.modal--active {
+  display: flex;
+}
+
+.modal--purchase__cart {
+  height: 400px;
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  background-color: black;
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+  box-shadow: 1px 1px 10px 8px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 1px 1px 10px 8px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 1px 10px 8px rgba(0, 0, 0, 0.75);
+}
+
+.modal--purchase__cart i {
+  color: rgb(120, 248, 120);
+  font-size: 5rem;
+}
+
+.text--modal {
+  font-size: 1.5rem;
+  text-align: center;
+  color: white;
 }

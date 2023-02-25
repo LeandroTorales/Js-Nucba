@@ -13,6 +13,10 @@ const buttonPurchaseCart = document.querySelector(".button--finish__purchase");
 const emptyCart = document.querySelector(".empty--cart__button");
 const containerProductsCart = document.querySelector(".container--products__cart");
 const cartEmptyContainer = document.querySelector(".cart--empty__container");
+const subtotalPriceContainer = document.querySelector(".subtotal--price__cart");
+const freeShippingContainer = document.querySelector(".free--shipping__cart");
+const totalPriceContainer = document.querySelector(".total--price__cart");
+const modalPurchase = document.querySelector(".modal--purchase__container");
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 const saveToLocalStorage = (key) => {
@@ -21,7 +25,9 @@ const saveToLocalStorage = (key) => {
 
 /* Intercambio de clases navbar y carrito */
 const toggleNav = () => {
-  containerCart.classList.toggle("hideCart");
+  if (!window.location.href.includes("ubicacion")) {
+    containerCart.classList.toggle("hideCart");
+  }
   ulHamburguesaMenu.classList.toggle("activeHamburguesa");
   blur.classList.toggle("active");
 };
@@ -72,6 +78,7 @@ const renderProductsCategory = (btn) => {
     .join("");
 };
 
+let handlerQuantity = 1;
 /* Funcion que crea el producto en el carrito del localStorage */
 const createCartProductToCart = (product) => {
   cart = [...cart, { ...product, quantity: Number(handlerQuantity) }];
@@ -96,7 +103,6 @@ const addUnitProductInCart = (product) => {
   handlerQuantity = 1;
 };
 
-let handlerQuantity;
 /* Handler cantidad de producto */
 const addQuantityProduct = (e) => {
   /* Se buscka el id del producto para encontrarlo en el array de productos, para saber su stock y asi poder ponerle un limpite al handler */
@@ -144,7 +150,8 @@ const setProductToLocalStorage = (e) => {
 
 /* Template productos en carrito */
 const templateRenderObjectCart = (product) => {
-  const { id, nameproduct, category, price, stock, imgproduct } = product;
+  const { id, nameproduct, category, price, stock, imgproduct, quantity } = product;
+
   return `
     <div class="container--product__inCart" data-id=${id} data-category=${category}>
       <img
@@ -155,15 +162,13 @@ const templateRenderObjectCart = (product) => {
       <div class="container--details__productInCart">
         <div>
           <span>${nameproduct}</span>
-          <span>$${price}</span>
+          <span>$${price} c/u</span>
         </div>
         <div>
-        <button>-</button>
-        <span>${stock}</span>
-        <button>+</button>
+          <span class="quantity--cart">Unidades: ${quantity}</span>      
         </div>
       </div>
-      <div><i class="fa-solid fa-trash-can"></i></div>
+      <div data-id=${id}><i class="fa-solid fa-trash-can delete--product__inCart"></i></div>
     </div>
   `;
 };
@@ -171,26 +176,61 @@ const templateRenderObjectCart = (product) => {
 /* Renderizado condicional carrito, si no hay productos muestra un template, sino, muestra los productos que hay en localStorage */
 const cartRenderConditional = () => {
   if (!cart.length) {
-    cartEmptyContainer.classList.add("activeCartProducts");
-    containerProductsCart.classList.remove("activeCartProducts");
+    if (!window.location.href.includes("ubicacion")) {
+      cartEmptyContainer.classList.add("activeCartProducts");
+      containerProductsCart.classList.remove("activeCartProducts");
+    }
   } else {
     cartEmptyContainer.classList.remove("activeCartProducts");
     containerProductsCart.classList.add("activeCartProducts");
+    cart.sort((a, b) => (a.price > b.price ? 1 : -1));
     return (containerProductsInCart.innerHTML = cart
       .map((product) => templateRenderObjectCart(product))
       .join(""));
   }
 };
 
-const checkStateCart = () => {
-  cartRenderConditional(cart);
-  saveToLocalStorage(cart);
+const deleteProductCart = (e) => {
+  if (!e.target.classList.contains("delete--product__inCart")) return;
+  const id = Number(e.target.parentNode.dataset.id);
+  const index = cart.findIndex((elem) => elem.id == id);
+  cart.splice(index, 1);
+  checkStateCart();
+};
+
+const subtotalPriceCart = () => {
+  const productsCartQuantity = cart.map((prod) => prod.price * prod.quantity);
+  return (subtotalPriceContainer.innerHTML = productsCartQuantity.reduce(
+    (acc, cur) => acc + cur,
+    0
+  ));
+};
+
+const freeShippingCart = () => {
+  if (subtotalPriceContainer.innerHTML >= 10000)
+    return (freeShippingContainer.innerHTML = `GRATIS`);
+  return (freeShippingContainer.innerHTML = "$" + Math.round(subtotalPriceCart() / 80));
+};
+
+const totalPriceCart = () => {
+  if (subtotalPriceContainer.innerHTML >= 10000)
+    return (totalPriceContainer.innerHTML = subtotalPriceCart());
+  return (totalPriceContainer.innerHTML =
+    subtotalPriceCart() + Math.round(subtotalPriceCart() / 80));
 };
 
 const cleanCart = () => {
   saveToLocalStorage([]);
   cart = [];
   checkStateCart();
+};
+
+const checkStateCart = () => {
+  cartRenderConditional(cart);
+  saveToLocalStorage(cart);
+  subtotalPriceCart();
+  freeShippingCart();
+  totalPriceCart();
 };
 
 /* Armado de listeners de navLinks */
@@ -221,6 +261,15 @@ const categoryListenerForEach = () => {
   });
 };
 
+const purchaseCart = () => {
+  toggleCart();
+  modalPurchase.classList.add("modal--active");
+  setTimeout(() => {
+    modalPurchase.classList.remove("modal--active");
+  }, 3000);
+  cleanCart();
+};
+
 const init = () => {
   window.addEventListener("DOMContentLoaded", toggleNavLinksForEach);
   window.addEventListener("DOMContentLoaded", buttonCategorySetListener);
@@ -231,6 +280,8 @@ const init = () => {
   cartIcon.addEventListener("click", toggleCart);
   cartIcon.addEventListener("click", checkStateCart);
   emptyCart.addEventListener("click", cleanCart);
+  containerProductsCart.addEventListener("click", deleteProductCart);
+  buttonPurchaseCart.addEventListener("click", purchaseCart);
 };
 
 init();

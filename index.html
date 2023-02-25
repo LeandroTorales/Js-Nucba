@@ -43,7 +43,14 @@
           <button class="empty--cart__button">Vaciar carrito</button>
         </div>
         <div class="container--all__productsCart"></div>
-        <button class="button--finish__purchase">Finalizar compra</button>
+        <div class="container--purchase__cart">
+          <div class="container--calculatePriceCart">
+            <span>Subtotal: $<span class="subtotal--price__cart"></span></span>
+            <span>Envío: <span class="free--shipping__cart"></span></span>
+            <span>Total: $<span class="total--price__cart"></span></span>
+          </div>
+          <button class="button--finish__purchase">Finalizar compra</button>
+        </div>
       </div>
       <div class="cart--empty__container">
         <div class="text--emptyCart">
@@ -55,6 +62,7 @@
         <a href="/index.html" class="redirection__toProducts"> Ver Productos </a>
       </div>
     </div>
+
     <!-- Finaliza cart -->
     <!-- Empieza section presentación -->
     <section class="presentacion--section" id="presentacion--section">
@@ -75,6 +83,7 @@
         <a href="#main--section"><button>PRODUCTOS</button></a>
       </div>
     </section>
+
     <!-- Termina section presentación -->
     <!-- Empieza section main -->
     <section id="main--section">
@@ -152,6 +161,13 @@
         <div class="container--products__inCategory"></div>
       </div>
     </section>
+    <div class="modal--purchase__container">
+      <div class="modal--purchase__cart">
+        <i class="fa-solid fa-check"></i>
+        <p class="text--modal">Tu compra ha sido confirmada.</p>
+        <p class="text--modal">Gracias por comprar en Kioskorporation.</p>
+      </div>
+    </div>
     <!-- Termina section main -->
   </body>
   <script src="./script/dataObjects.js" type="module"></script>
