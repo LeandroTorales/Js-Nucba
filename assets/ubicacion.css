@@ -7,8 +7,47 @@
   justify-content: center;
 }
 
-.ubicacion--container  {
-  height: 80%;
+.ubicacion--container {
+  height: calc(80% - 50px);
   width: 90%;
   background-color: rgb(218, 229, 238);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.info--container__location {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  font-size: 1.3rem;
+  height: 100%;
+  gap: 20px;
+  width: 50%;
+}
+
+.info--container__location > div {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.map--container {
+  border-left: 1px solid black;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  width: 50%;
+}
+
+.map--container iframe {
+  height: 100%;
+  width: 100%;
 }
