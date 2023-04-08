@@ -26,6 +26,7 @@ html {
   height: 100vh;
   width: 100%;
 }
+
 .presentacion--section img {
   height: 100%;
   width: 100%;
@@ -36,7 +37,7 @@ html {
   object-fit: cover;
 }
 
-.presentacion--section > div:first-of-type {
+.presentacion--section>div:first-of-type {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -117,7 +118,7 @@ html {
   flex-direction: column;
 }
 
-.container--category > button {
+.container--category>button {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -156,7 +157,7 @@ html {
   height: 265px;
 }
 
-.container--singleProduct__inCategory > div {
+.container--singleProduct__inCategory>div {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -177,14 +178,14 @@ html {
   -o-border-radius: 15px;
 }
 
-.container--singleProduct__inCategory > div > div:last-of-type {
+.container--singleProduct__inCategory>div>div:last-of-type {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
 }
 
-.container--singleProduct__inCategory > div > div:last-of-type button {
+.container--singleProduct__inCategory>div>div:last-of-type button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -258,4 +259,37 @@ html {
   font-size: 1.5rem;
   text-align: center;
   color: white;
+}
+
+.footer--container {
+  color: white;
+  width: 100%;
+  height: 20vh;
+  border-top: 1px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.container--information__contact {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  width: 95%;
+
+}
+
+.container--information__contact h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.line--divisor__footer {
+  background-color: #ffffff;
+  width: 95%;
+  height: 1px;
 }
